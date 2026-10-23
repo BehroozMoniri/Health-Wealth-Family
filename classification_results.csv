@@ -1,0 +1,33 @@
+Country,Actual Category,Predicted Category,Actual Score,Result
+Myanmar,Low,Medium,4.307,❌ Incorrect
+Japan,Medium,High,5.987,❌ Incorrect
+Egypt,Low,Medium,4.194,❌ Incorrect
+Argentina,High,Medium,6.574,❌ Incorrect
+Lesotho,Medium,Low,4.898,❌ Incorrect
+Laos,Medium,Low,4.876,❌ Incorrect
+Uganda,Low,Medium,3.931,❌ Incorrect
+Nicaragua,Medium,High,5.828,❌ Incorrect
+Brazil,High,Medium,6.983,❌ Incorrect
+Czech Republic,High,Medium,6.505,❌ Incorrect
+Sierra Leone,Medium,Low,4.507,❌ Incorrect
+Mozambique,Medium,Low,4.971,❌ Incorrect
+Madagascar,Low,Medium,3.681,❌ Incorrect
+Tanzania,Low,Medium,3.781,❌ Incorrect
+Burundi,Low,Low,2.905,✅ Correct
+Somaliland region,Medium,Medium,5.057,✅ Correct
+Bosnia and Herzegovina,Medium,Medium,4.949,✅ Correct
+United Arab Emirates,High,High,6.901,✅ Correct
+Turkmenistan,Medium,Medium,5.548,✅ Correct
+Panama,High,High,6.786,✅ Correct
+Iran,Medium,Medium,4.686,✅ Correct
+North Cyprus,Medium,Medium,5.695,✅ Correct
+Ivory Coast,Low,Low,3.655,✅ Correct
+Belgium,High,High,6.937,✅ Correct
+Austria,High,High,7.2,✅ Correct
+Australia,High,High,7.284,✅ Correct
+Uruguay,High,High,6.485,✅ Correct
+Jordan,Medium,Medium,5.192,✅ Correct
+Moldova,Medium,Medium,5.889,✅ Correct
+Comoros,Low,Low,3.956,✅ Correct
+Djibouti,Low,Low,4.369,✅ Correct
+Turkey,Medium,Medium,5.332,✅ Correct

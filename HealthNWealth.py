@@ -16,7 +16,7 @@ from sklearn.metrics import r2_score
 # ==========================================
 # 1. LOAD AND PREPARE DATA
 # ==========================================
-df = pd.read_excel('Happiness Health and Economy of world.xlsx', sheet_name='2015')
+df = pd.read_excel('data\Happiness Health and Economy of world.xlsx', sheet_name='2015')
 
 features = ['Region', 'Economy (GDP per Capita)', 'Family', 'Health (Life Expectancy)',
             'Freedom', 'Trust (Government Corruption)', 'Generosity']
@@ -323,3 +323,65 @@ plt.axvline(x=0, color='black', linestyle='--')
 plt.tight_layout()
 plt.savefig('images/happiness_coefficients.png', dpi=300)
 plt.show()
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier
+
+# 1. Load data
+df = pd.read_excel('data\Happiness Health and Economy of world.xlsx', sheet_name='2015')
+
+# 2. Categorize Happiness
+def categorize_happiness(score):
+    if score < 4.5: return 'Low'
+    elif score <= 6.0: return 'Medium'
+    else: return 'High'
+
+df['Actual Category'] = df['Happiness Score'].apply(categorize_happiness)
+
+# 3. Setup Features
+features = ['Region', 'Economy (GDP per Capita)', 'Family', 'Health (Life Expectancy)',
+            'Freedom', 'Trust (Government Corruption)', 'Generosity']
+X = df[features]
+y = df['Actual Category']
+
+# 4. Split Data (We use random_state=42 to match your previous test set)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 5. Preprocessor and Model
+preprocessor = ColumnTransformer(
+    transformers=[
+        ('num', StandardScaler(), features[1:]),
+        ('cat', OneHotEncoder(handle_unknown='ignore'), ['Region'])
+    ])
+
+clf_pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('model', RandomForestClassifier(n_estimators=100, random_state=42))
+])
+
+# 6. Train and Predict
+clf_pipeline.fit(X_train, y_train)
+y_pred = clf_pipeline.predict(X_test)
+
+# 7. Create a DataFrame of Results
+# We grab the original Country names from the test set indices
+results_df = pd.DataFrame({
+    'Country': df.loc[y_test.index, 'Country'],
+    'Actual Category': y_test,
+    'Predicted Category': y_pred,
+    'Actual Score': df.loc[y_test.index, 'Happiness Score']
+})
+
+# Add a column to show if the prediction was correct or wrong
+results_df['Result'] = results_df.apply(lambda row: '✅ Correct' if row['Actual Category'] == row['Predicted Category'] else '❌ Incorrect', axis=1)
+
+# Sort so the incorrect predictions are at the top (these are the most interesting to read!)
+results_df = results_df.sort_values(by='Result', ascending=False)
+
+# Save to CSV so we can read it
+results_df.to_csv('classification_results.csv', index=False)
+print("File saved as classification_results.csv")
