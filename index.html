@@ -3,54 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decoding the Smile | ML Project</title>
+    <title>Decoding Global Happiness | ML Analysis</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        h2 { color: #2980b9; margin-top: 30px; }
-        img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 20px 0; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
-        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
-        th { background-color: #3498db; color: white; }
-        .highlight { background-color: #e8f4f8; padding: 15px; border-left: 5px solid #3498db; margin: 20px 0; border-radius: 4px;}
+        /* Modern, clean typography and layout */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.8;
+            color: #2d3748;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: #f7fafc;
+        }
+        h1 {
+            color: #1a202c;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #2b6cb0;
+            margin-top: 50px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: #718096;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        /* Styling for images */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin: 30px 0;
+            display: block;
+        }
+        .caption {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #718096;
+            margin-top: -20px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        /* Styling for the data table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #edf2f7;
+            text-align: left;
+        }
+        th {
+            background-color: #2b6cb0;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover { background-color: #f7fafc; }
+        /* Highlight box for key insights */
+        .highlight {
+            background-color: #ebf8ff;
+            border-left: 5px solid #3182ce;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
 
     <h1>Decoding the Smile: What Machine Learning Taught Us About Global Happiness</h1>
+    <div class="subtitle">An in-depth data analysis of 158 nations, socioeconomic metrics, and predictive modeling.</div>
 
-    <p>We all want to be happy. But what actually makes a country happy? To answer this, I trained four Machine Learning models on the 2015 World Happiness Report to see if a computer could predict a nation's happiness score based on metrics like GDP, health, and freedom.</p>
+    <p>The pursuit of happiness is one of humanity's oldest philosophical questions. But in the era of big data, it has also become a statistical one. The 2015 World Happiness Report provided a fascinating snapshot of global well-being, ranking <strong>158 countries</strong> based on complex survey data. But what truly drives these scores? Is it purely wealth, or do health, family, and freedom play a larger role?</p>
 
-    <h2>1. The Machine Learning Showdown</h2>
-    <p>I tested Linear Regression, Decision Trees, Random Forests, and XGBoost. The results were surprising:</p>
+    <p>To answer this, I utilized Python and machine learning to reverse-engineer the happiness score. By analyzing six key metrics—Economy (GDP per Capita), Family, Health (Life Expectancy), Freedom, Trust in Government, and Generosity—this project aims to find the mathematical equation for a happy nation.</p>
+
+    <h2>1. The Data and Its Significance</h2>
+    <p>The dataset spans the globe, from the pristine peaks of Switzerland (Rank 1, Score 7.587) to the challenging environments of Togo (Rank 158, Score 2.839). This variance provides a perfect playground for regression analysis. Before building any models, we mapped the correlation between the variables.</p>
+
+    <img src="images/correlation_heatmap.png" alt="Correlation Matrix">
+    <div class="caption">Figure 1: Correlation matrix showing the relationships between happiness metrics.</div>
+
+    <p>As seen in the heatmap above, the strongest positive correlations with the Happiness Score are **Economy (GDP)** and **Health**. Interestingly, **Generosity** shows a surprisingly weak correlation. This immediately tells us that while giving to charity feels good, a nation's average generosity doesn't dictate its overall happiness ranking as strongly as its wealth or life expectancy.</p>
+
+    <h2>2. The Machine Learning Showdown</h2>
+    <p>We trained four distinct machine learning models on 80% of the data and tested them on the remaining 20% of unseen countries. The metric used to judge them was the <strong>R-squared (R²) score</strong>. In simple terms, R² tells us the percentage of the variance in happiness that our model can explain. An R² of 1.0 is perfect; an R² of 0 means the model is just guessing the average.</p>
 
     <table>
-        <tr><th>Model</th><th>Train R²</th><th>Test R²</th><th>Test Error (MAE)</th></tr>
-        <tr><td>Linear Regression</td><td>0.803</td><td><strong>0.864</strong></td><td><strong>0.348</strong></td></tr>
+        <tr><th>Model</th><th>Train R²</th><th>Test R²</th><th>Average Error (MAE)</th></tr>
+        <tr><td>Linear Regression</td><td>0.803</td><td><strong style="color:#2f855a;">0.864</strong></td><td><strong style="color:#2f855a;">0.348</strong></td></tr>
         <tr><td>Random Forest</td><td>0.966</td><td>0.836</td><td>0.392</td></tr>
         <tr><td>XGBoost</td><td>1.000</td><td>0.796</td><td>0.432</td></tr>
+        <tr><td>Decision Tree</td><td>0.920</td><td>0.758</td><td>0.478</td></tr>
     </table>
 
-    <img src="images/model_comparison_fixed.png" alt="Model Comparison Chart">
-
     <div class="highlight">
-        <strong>Key Insight:</strong> The complex XGBoost model perfectly memorized the training data (1.000) but failed to generalize, dropping to 0.796 on unseen data. The simple Linear Regression model won with 86.4% accuracy.
+        <strong>The Surprising Winner:</strong> The complex XGBoost model achieved a perfect 1.000 on the training data. However, on the unseen test data, it dropped to 0.796. This is a classic machine learning pitfall known as <em>overfitting</em>—the model simply memorized the data. The humble Linear Regression model won, explaining <strong>86.4% of the variance</strong> in unseen happiness scores.
     </div>
 
-    <h2>2. What Actually Drives Happiness?</h2>
-    <p>Because Linear Regression won, we can extract the exact coefficients to see what matters most.</p>
+    <img src="images/actual_vs_predicted.png" alt="Actual vs Predicted">
+    <div class="caption">Figure 2: Linear Regression predictions vs actual scores. The tighter the dots hug the red line, the better the model.</div>
 
-    <img src="images/happiness_coefficients.png" alt="Happiness Coefficients">
+    <h2>3. Extracting the Formula for Happiness</h2>
+    <p>Because Linear Regression is a "white box" model, we can extract the exact mathematical coefficients it learned. These coefficients tell us exactly how much a 1-unit increase in a feature affects the Happiness Score, assuming everything else stays the same.</p>
 
-    <p><strong>Economy (GDP)</strong> and <strong>Health</strong> are the heavyweights. Surprisingly, <strong>Generosity</strong> has almost zero mathematical impact on a country's overall score.</p>
+    <img src="images/happiness_coefficients.png" alt="Regression Coefficients">
+    <div class="caption">Figure 3: The mathematical weight of each feature in driving global happiness.</div>
 
-    <h2>3. The Classification Challenge</h2>
-    <p>I also tried to group countries into "Low", "Medium", and "High" happiness. The model achieved 56% accuracy. Why so low? Because the boundaries between "Low" and "Medium" are artificial.</p>
+    <p><strong>The Economic Weight:</strong> Economy (GDP per Capita) has the largest coefficient. In our model, a 1-point increase in the GDP metric translates to roughly a 1.2-point increase in the happiness score. Money, unequivocally, matters.</p>
+    <p><strong>The Health Factor:</strong> Health (Life Expectancy) comes in second. A healthy population is a happy population.</p>
+    <p><strong>The Generosity Paradox:</strong> Look at the Generosity bar. It is practically invisible. Mathematically, whether a country scores high or low on generosity barely shifts the needle on its overall happiness ranking, at least when compared to the heavyweights of GDP and Health.</p>
+
+    <h2>4. Classifying the World</h2>
+    <p>Finally, we challenged the model to categorize countries into three distinct buckets: Low Happiness (score < 4.5), Medium (4.5 - 6.0), and High (> 6.0). We used a Random Forest Classifier for this task.</p>
 
     <img src="images/confusion_matrix.png" alt="Confusion Matrix">
+    <div class="caption">Figure 4: How accurately did the model group countries into Low, Medium, and High happiness?</div>
 
-    <h2>Explore the Code</h2>
-    <p>This project was built using Python, Pandas, Scikit-Learn, and Seaborn. You can view the full source code in the repository!</p>
+    <p>The model achieved a 56% accuracy. The confusion matrix reveals why: it is highly accurate at identifying "High" happiness countries, but struggles to distinguish between "Low" and "Medium". This is because the boundary between a score of 4.4 and 4.6 is artificial. A country is not fundamentally different just because it crossed an invisible threshold, which highlights the limitations of strict categorizations in social sciences.</p>
+
+    <h2>Conclusion</h2>
+    <p>Through this analysis, we proved that predicting the happiness of a nation is not random. The data shows a highly linear and predictable pattern. While complex AI models are tempting to use, the simplest model (Linear Regression) provided the most robust and interpretable results. Ultimately, the data suggests that the core pillars of a happy society remain fundamental: a strong economy, a healthy population, and strong familial bonds.</p>
+
+    <hr style="margin: 40px 0; border: 0; border-top: 1px solid #e2e8f0;">
+    <p style="text-align: center; font-size: 0.9rem; color: #a0aec0;">Built with Python, Scikit-Learn, Pandas, and Seaborn. Explore the source code in this repository.</p>
 
 </body>
 </html>
