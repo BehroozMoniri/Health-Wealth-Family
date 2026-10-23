@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decoding the Smile | ML Project</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #3498db; color: white; }
+        .highlight { background-color: #e8f4f8; padding: 15px; border-left: 5px solid #3498db; margin: 20px 0; border-radius: 4px;}
+    </style>
+</head>
+<body>
+
+    <h1>Decoding the Smile: What Machine Learning Taught Us About Global Happiness</h1>
+
+    <p>We all want to be happy. But what actually makes a country happy? To answer this, I trained four Machine Learning models on the 2015 World Happiness Report to see if a computer could predict a nation's happiness score based on metrics like GDP, health, and freedom.</p>
+
+    <h2>1. The Machine Learning Showdown</h2>
+    <p>I tested Linear Regression, Decision Trees, Random Forests, and XGBoost. The results were surprising:</p>
+
+    <table>
+        <tr><th>Model</th><th>Train R²</th><th>Test R²</th><th>Test Error (MAE)</th></tr>
+        <tr><td>Linear Regression</td><td>0.803</td><td><strong>0.864</strong></td><td><strong>0.348</strong></td></tr>
+        <tr><td>Random Forest</td><td>0.966</td><td>0.836</td><td>0.392</td></tr>
+        <tr><td>XGBoost</td><td>1.000</td><td>0.796</td><td>0.432</td></tr>
+    </table>
+
+    <img src="images/model_comparison_fixed.png" alt="Model Comparison Chart">
+
+    <div class="highlight">
+        <strong>Key Insight:</strong> The complex XGBoost model perfectly memorized the training data (1.000) but failed to generalize, dropping to 0.796 on unseen data. The simple Linear Regression model won with 86.4% accuracy.
+    </div>
+
+    <h2>2. What Actually Drives Happiness?</h2>
+    <p>Because Linear Regression won, we can extract the exact coefficients to see what matters most.</p>
+
+    <img src="images/happiness_coefficients.png" alt="Happiness Coefficients">
+
+    <p><strong>Economy (GDP)</strong> and <strong>Health</strong> are the heavyweights. Surprisingly, <strong>Generosity</strong> has almost zero mathematical impact on a country's overall score.</p>
+
+    <h2>3. The Classification Challenge</h2>
+    <p>I also tried to group countries into "Low", "Medium", and "High" happiness. The model achieved 56% accuracy. Why so low? Because the boundaries between "Low" and "Medium" are artificial.</p>
+
+    <img src="images/confusion_matrix.png" alt="Confusion Matrix">
+
+    <h2>Explore the Code</h2>
+    <p>This project was built using Python, Pandas, Scikit-Learn, and Seaborn. You can view the full source code in the repository!</p>
+
+</body>
+</html>
